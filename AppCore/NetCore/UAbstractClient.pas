@@ -12,7 +12,7 @@ uses
 
 type
   TBaseTCPClient = class abstract
-  private
+  protected
     Socket: TSocket;
     FHandle: TProc<TBytes>;
     Data: TBytes;
@@ -61,7 +61,7 @@ begin
       begin
         if Length(Data)>=SizeOf(integer) then
         begin
-          DataSize := Pinteger(@Data)^;
+          DataSize := Pinteger(Data)^;
           Data := Copy(Data,SizeOf(DataSize),Length(Data)-SizeOf(DataSize));
         end
         else
@@ -80,7 +80,7 @@ var
 begin
   Len := Length(AData);
   Socket.Send(Len,SizeOf(Len));
-  Socket.Send(AData,Length(AData));
+  Socket.Send(AData);
 end;
 
 destructor TBaseTCPClient.Destroy;

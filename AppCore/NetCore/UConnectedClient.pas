@@ -13,14 +13,9 @@ uses
 
 type
   TConnectedClient = class(TBaseTCPClient)
-  strict private
-    Socket: TSocket;
-    FHandle: TProc<TBytes>;
-    Data: TBytes;
-    DataSize: integer;
   public
     property Handle: TProc<TBytes> read FHandle write FHandle;
-    procedure Connect(const AIP: string; APort: Word);
+//    procedure Connect(const AIP: string; APort: Word);
     procedure Disconnect;
     constructor Create(ASocket: TSocket);
   end;
@@ -34,17 +29,11 @@ begin
   Socket := ASocket;
   DataSize := 0;
   SetLength(Data,DataSize);
-  StartReceive;
 end;
 
 procedure TConnectedClient.Disconnect;
 begin
   Socket.Close(True);
-end;
-
-procedure TConnectedClient.Connect(const AIP: string; APort: Word);
-begin
-  //
 end;
 
 {$ENDREGION}

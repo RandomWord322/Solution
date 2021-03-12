@@ -95,6 +95,7 @@ begin
   begin
     ConnectedClient := TConnectedClient.Create(AcceptedSocket);
     FAcceptHandle(ConnectedClient);
+    ConnectedClient.StartReceive;
   end;
   Socket.BeginAccept(AcceptCallback,100);
 end;

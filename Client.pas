@@ -19,7 +19,7 @@ uses
   FMX.Memo,
   FMX.Controls.Presentation,
   FMX.Edit,
-  UConnectedClient;
+  UClient;
 
 type
   TClientForm = class(TForm)
@@ -42,7 +42,7 @@ type
 
 var
   ClientForm: TClientForm;
-  ConClient: TConnectedClient;
+  ConClient: TClient;
   Socket: TSocket;
 
 implementation
@@ -51,13 +51,12 @@ implementation
 
 procedure TClientForm.ConnectButtonClick(Sender: TObject);
 begin
-  Socket.Connect('','127.0.0.1', '', 20000);
+  ConClient.Connect('127.0.0.1', 20000);
 end;
 
 procedure TClientForm.FormCreate(Sender: TObject);
 begin
-  Socket := TSocket.Create(TSocketType.TCP);
-  ConClient := TConnectedClient.Create(Socket);
+  ConClient := TClient.Create;
 end;
 
 procedure TClientForm.SendButtonClick(Sender: TObject);
