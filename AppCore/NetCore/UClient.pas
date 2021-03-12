@@ -22,7 +22,7 @@ implementation
 
 constructor TClient.Create(ASocket: TSocket = nil);
 begin
-  Socket := TSocket.Create(TSocketType.TCP,TEncoding.UTF8);
+
   DataSize := 0;
   SetLength(Data,DataSize);
 end;
@@ -35,6 +35,9 @@ end;
 procedure TClient.Connect(const AIP: string; APort: Word);
 begin
   try
+    if not Assigned(Socket) then
+      Socket := TSocket.Create(TSocketType.TCP,TEncoding.UTF8);
+
     Socket.Connect('',AIP,'',APort);
     StartReceive;
   except

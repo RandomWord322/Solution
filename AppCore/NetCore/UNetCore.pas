@@ -18,8 +18,10 @@ type
     MonitorConnectedClients: TMonitor;
     FHandler: IBaseHandler;
     procedure Handle(AData: TBytes);
+    function GetServerStatus: boolean;
   public
     ConnectedClients: TArray<TConnectedClient>;
+    property ServerStarted: boolean read GetServerStatus;
     property Handler: IBaseHandler read FHandler write FHandler;
     procedure Start;
     procedure Stop;
@@ -50,6 +52,11 @@ begin
   SetLength(ConnectedClients,0);
 end;
 
+function TNetCore.GetServerStatus: boolean;
+begin
+  GetServerStatus := Server.isActive;
+end;
+
 procedure TNetCore.Handle(AData: TBytes);
 begin
   FHandler.HandleReceiveData(AData);
@@ -59,9 +66,15 @@ procedure TNetCore.Start;
 begin
   Server.Start;
 end;
+
 procedure TNetCore.Stop;
+var
+  ConClient: TConnectedClient;
 begin
   Server.Stop;
+  for ConClient in ConnectedClients do
+    ConClient.Free;
+  SetLength(ConnectedClients,0);
 end;
 
 {$ENDREGION}

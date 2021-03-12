@@ -61,14 +61,30 @@ end;
 
 procedure TServerForm.StartButtonClick(Sender: TObject);
 begin
-  NC.Start;
-  MsgMemo.Lines.Add('Server started...');
+  if not NC.ServerStarted then
+  begin
+    NC.Start;
+    MsgMemo.Lines.Add('Server started...');
+    StartButton.Text := 'Restart';
+  end else
+  begin
+    NC.Stop;
+    NC.Start;
+    MsgMemo.Lines.Add('Server restarted...');
+  end;
 end;
 
 procedure TServerForm.StopButtonClick(Sender: TObject);
 begin
-  NC.Stop;
-  MsgMemo.Lines.Add('Server stoped');
+  if NC.ServerStarted then
+  begin
+    NC.Stop;
+    MsgMemo.Lines.Add('Server stoped');
+    StartButton.Text := 'Start';
+  end else
+  begin
+    MsgMemo.Lines.Add('Server is not active already');
+  end;
 end;
 
 { TEchoHandler }
