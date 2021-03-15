@@ -38,7 +38,7 @@ begin
   try
     Bytes := Socket.EndReceiveBytes(ASyncResult);
   except
-    SetLength(Bytes,0);
+    SetLength(Bytes, 0);
   end;
 
   if Length(Bytes) > 0 then
@@ -50,8 +50,8 @@ begin
       begin
         if Length(Data) >= DataSize then
         begin
-          Handle(Copy(Data,0,DataSize));
-          Data := Copy(Data,DataSize,Length(Data)-DataSize);
+          Handle(Copy(Data, 0, DataSize));
+          Data := Copy(Data, DataSize, Length(Data) - DataSize);
           DataSize := 0;
         end
         else
@@ -59,10 +59,10 @@ begin
       end
       else
       begin
-        if Length(Data)>=SizeOf(integer) then
+        if Length(Data) >= SizeOf(integer) then
         begin
           DataSize := Pinteger(Data)^;
-          Data := Copy(Data,SizeOf(DataSize),Length(Data)-SizeOf(DataSize));
+          Data := Copy(Data, SizeOf(DataSize), Length(Data) - SizeOf(DataSize));
         end
         else
           break;
@@ -79,14 +79,16 @@ var
   Len: integer;
 begin
   Len := Length(AData);
-  Socket.Send(Len,SizeOf(Len));
+  Socket.Send(Len, SizeOf(Len));
   Socket.Send(AData);
 end;
 
 destructor TBaseTCPClient.Destroy;
 begin
-  Socket.Close(Connected);
-  Socket.Destroy;
+  Socket := nil;
+  FHandle := nil;
+  setLength(Data,0);
+  DataSize := 0;
 end;
 
 procedure TBaseTCPClient.StartReceive;

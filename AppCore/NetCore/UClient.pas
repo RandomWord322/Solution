@@ -11,6 +11,10 @@ uses
   UAbstractClient;
 type
   TClient = class(TBaseTCPClient)
+  private
+//    Socket: TSocket;
+    FHandle: TProc<TBytes>;
+    procedure Init;
   public
     property Handle: TProc<TBytes> read FHandle write FHandle;
     procedure Connect(const AIP: string; APort: Word);
@@ -22,9 +26,7 @@ implementation
 
 constructor TClient.Create(ASocket: TSocket = nil);
 begin
-
-  DataSize := 0;
-  SetLength(Data,DataSize);
+  init;
 end;
 
 procedure TClient.Disconnect;
@@ -32,16 +34,25 @@ begin
   Socket.Close(True);
 end;
 
+procedure TClient.Init;
+begin
+  if not Assigned(Socket) or (Socket = nil) then
+  begin
+    Socket := TSocket.Create(TSocketType.TCP,TEncoding.UTF8);
+    DataSize := 0;
+    SetLength(Data,DataSize);
+  end;
+end;
+
 procedure TClient.Connect(const AIP: string; APort: Word);
 begin
   try
-    if not Assigned(Socket) then
-      Socket := TSocket.Create(TSocketType.TCP,TEncoding.UTF8);
-
+    init;
     Socket.Connect('',AIP,'',APort);
     StartReceive;
   except
-    raise Exception.Create('Can''t Connect');
+    on E:Exception do
+      raise Exception.Create(E.Message);
   end;
 end;
 

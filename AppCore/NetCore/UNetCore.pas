@@ -69,11 +69,11 @@ end;
 
 procedure TNetCore.Stop;
 var
-  ConClient: TConnectedClient;
+  i: Integer;
 begin
   Server.Stop;
-  for ConClient in ConnectedClients do
-    ConClient.Free;
+  for i := 0 to Length(ConnectedClients) - 1 do
+    ConnectedClients[i].Disconnect;
   SetLength(ConnectedClients,0);
 end;
 

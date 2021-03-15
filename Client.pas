@@ -31,7 +31,6 @@ type
     ConnectButton: TButton;
     SendEdit: TEdit;
     SendButton: TButton;
-    procedure FormCreate(Sender: TObject);
     procedure ConnectButtonClick(Sender: TObject);
     procedure SendButtonClick(Sender: TObject);
   private
@@ -51,12 +50,8 @@ implementation
 
 procedure TClientForm.ConnectButtonClick(Sender: TObject);
 begin
-  ConClient.Connect('127.0.0.1', 20000);
-end;
-
-procedure TClientForm.FormCreate(Sender: TObject);
-begin
   ConClient := TClient.Create;
+  ConClient.Connect('127.0.0.1', 20000);
 end;
 
 procedure TClientForm.SendButtonClick(Sender: TObject);
