@@ -12,13 +12,13 @@ uses
 type
   TClient = class(TBaseTCPClient)
   private
-//    Socket: TSocket;
     FHandle: TProc<TBytes>;
     procedure Init;
   public
     property Handle: TProc<TBytes> read FHandle write FHandle;
     procedure Connect(const AIP: string; APort: Word);
     procedure Disconnect;
+    function TryDisconnect: Boolean;
     constructor Create(ASocket: TSocket = nil);
   end;
 
@@ -29,6 +29,13 @@ begin
   init;
 end;
 
+function TClient.TryDisconnect: Boolean;
+begin
+  if Self.Connected then
+    Disconnect;
+  Result := not Connected;
+end;
+
 procedure TClient.Disconnect;
 begin
   Socket.Close(True);
@@ -36,7 +43,7 @@ end;
 
 procedure TClient.Init;
 begin
-  if not Assigned(Socket) or (Socket = nil) then
+  if not Assigned(Socket) then
   begin
     Socket := TSocket.Create(TSocketType.TCP,TEncoding.UTF8);
     DataSize := 0;
@@ -47,7 +54,6 @@ end;
 procedure TClient.Connect(const AIP: string; APort: Word);
 begin
   try
-    init;
     Socket.Connect('',AIP,'',APort);
     StartReceive;
   except

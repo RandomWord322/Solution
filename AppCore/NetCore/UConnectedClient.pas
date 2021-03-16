@@ -31,7 +31,8 @@ end;
 
 procedure TConnectedClient.Disconnect;
 begin
-  Socket.Close;
+  if Assigned(Socket) then
+    Socket.Close;
 end;
 
 {$ENDREGION}

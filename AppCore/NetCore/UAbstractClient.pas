@@ -71,7 +71,7 @@ begin
     StartReceive;
   end
   else
-    Free;
+    FreeAndNil(self);
 end;
 
 procedure TBaseTCPClient.SendMessage(const AData: TBytes);
@@ -85,7 +85,7 @@ end;
 
 destructor TBaseTCPClient.Destroy;
 begin
-  Socket := nil;
+  FreeAndNil(Socket);
   FHandle := nil;
   setLength(Data,0);
   DataSize := 0;
@@ -99,8 +99,11 @@ end;
 function TBaseTCPClient.Connected: Boolean;
 begin
   try
-    Result := TSocketState.Connected in Socket.State;
-  finally
+    if Assigned(Socket) then
+      Result := TSocketState.Connected in Socket.State
+    else
+      Result := False;
+  except
     Result := False;
   end;
 end;

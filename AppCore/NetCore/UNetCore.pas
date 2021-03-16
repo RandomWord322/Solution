@@ -44,6 +44,12 @@ begin
     ConnectedCli.Handle := Handle;
     ConnectedClients := ConnectedClients + [ConnectedCli];
   end);
+//  Server.NewConnectHandle :=
+//  (procedure (ConnectedCli: TConnectedClient)
+//  begin
+//    ConnectedCli.Handle := Handle;
+//    ConnectedClients := ConnectedClients + [ConnectedCli];
+//  end);
 end;
 
 destructor TNetCore.Destroy;

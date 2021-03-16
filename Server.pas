@@ -42,6 +42,8 @@ type
 
   TEchoHandler = class(TInterfacedObject,IBaseHandler)
     procedure HandleReceiveData(const ABytes: TBytes);
+    procedure HandleConnectClient(ClientName: String);
+    procedure HandleDisconnectClient(ClientName: String);
   end;
 
 var
@@ -88,6 +90,16 @@ begin
 end;
 
 { TEchoHandler }
+
+procedure TEchoHandler.HandleConnectClient(ClientName: String);
+begin
+  ServerForm.MsgMemo.Lines.Add('Client ' + ClientName + ' just connected');
+end;
+
+procedure TEchoHandler.HandleDisconnectClient(ClientName: String);
+begin
+  ServerForm.MsgMemo.Lines.Add('Client ' + ClientName + ' just disconnected');
+end;
 
 procedure TEchoHandler.HandleReceiveData(const ABytes: TBytes);
 var

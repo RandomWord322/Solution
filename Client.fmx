@@ -3,40 +3,41 @@ object ClientForm: TClientForm
   Top = 0
   BorderStyle = Single
   Caption = 'Client'
-  ClientHeight = 493
-  ClientWidth = 306
+  ClientHeight = 565
+  ClientWidth = 300
   Position = ScreenCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnClose = FormClose
   DesignerMasterStyle = 0
   object ConnectButton: TButton
-    Position.X = 74.000000000000000000
-    Position.Y = 106.000000000000000000
-    Size.Width = 154.000000000000000000
-    Size.Height = 43.000000000000000000
+    Position.X = 30.000000000000000000
+    Position.Y = 125.000000000000000000
+    Size.Width = 240.000000000000000000
+    Size.Height = 45.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 4
+    TabOrder = 5
     Text = 'Connect'
     OnClick = ConnectButtonClick
   end
   object IPEdit: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
-    TabOrder = 7
+    TabOrder = 8
     ReadOnly = True
     Text = '127.0.0.1'
-    Position.X = 104.000000000000000000
+    Position.X = 120.000000000000000000
     Position.Y = 16.000000000000000000
-    Size.Width = 121.000000000000000000
+    Size.Width = 153.000000000000000000
     Size.Height = 33.000000000000000000
     Size.PlatformDefault = False
   end
   object IPLabel: TLabel
     StyledSettings = [Family, Style, FontColor]
-    Position.X = 8.000000000000000000
-    Position.Y = 24.000000000000000000
+    Position.X = 32.000000000000000000
+    Position.Y = 23.000000000000000000
     Size.Width = 81.000000000000000000
-    Size.Height = 17.000000000000000000
+    Size.Height = 20.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Size = 15.000000000000000000
     TextSettings.HorzAlign = Trailing
@@ -46,32 +47,36 @@ object ClientForm: TClientForm
   object MsgMemo: TMemo
     Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
     DataDetectorTypes = []
-    Position.X = 16.000000000000000000
-    Position.Y = 192.000000000000000000
-    Size.Width = 273.000000000000000000
-    Size.Height = 288.000000000000000000
+    Align = MostBottom
+    Margins.Left = 10.000000000000000000
+    Margins.Right = 10.000000000000000000
+    Margins.Bottom = 10.000000000000000000
+    Position.X = 10.000000000000000000
+    Position.Y = 272.000000000000000000
+    Size.Width = 280.000000000000000000
+    Size.Height = 283.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 5
-    Viewport.Width = 269.000000000000000000
-    Viewport.Height = 284.000000000000000000
+    TabOrder = 6
+    Viewport.Width = 276.000000000000000000
+    Viewport.Height = 279.000000000000000000
   end
   object PortEdit: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
     TabOrder = 2
     ReadOnly = True
     Text = '50000'
-    Position.X = 104.000000000000000000
-    Position.Y = 56.000000000000000000
-    Size.Width = 121.000000000000000000
+    Position.X = 120.000000000000000000
+    Position.Y = 64.000000000000000000
+    Size.Width = 153.000000000000000000
     Size.Height = 33.000000000000000000
     Size.PlatformDefault = False
   end
   object PortLabel: TLabel
     StyledSettings = [Family, Style, FontColor]
-    Position.X = 8.000000000000000000
-    Position.Y = 64.000000000000000000
+    Position.X = 32.000000000000000000
+    Position.Y = 70.000000000000000000
     Size.Width = 81.000000000000000000
-    Size.Height = 17.000000000000000000
+    Size.Height = 20.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Size = 15.000000000000000000
     TextSettings.HorzAlign = Trailing
@@ -79,23 +84,33 @@ object ClientForm: TClientForm
     TabOrder = 1
   end
   object SendButton: TButton
-    Position.X = 216.000000000000000000
-    Position.Y = 160.000000000000000000
-    Size.Width = 73.000000000000000000
-    Size.Height = 22.000000000000000000
+    Position.X = 208.000000000000000000
+    Position.Y = 235.000000000000000000
+    Size.Width = 81.000000000000000000
+    Size.Height = 28.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 8
+    TabOrder = 9
     Text = 'Send'
     OnClick = SendButtonClick
   end
   object SendEdit: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
-    TabOrder = 6
+    TabOrder = 7
     Text = 'Hello, server!'
-    Position.X = 16.000000000000000000
-    Position.Y = 160.000000000000000000
-    Size.Width = 193.000000000000000000
-    Size.Height = 22.000000000000000000
+    Position.X = 10.000000000000000000
+    Position.Y = 235.000000000000000000
+    Size.Width = 190.000000000000000000
+    Size.Height = 28.000000000000000000
     Size.PlatformDefault = False
+  end
+  object DisconnectButton: TButton
+    Position.X = 30.000000000000000000
+    Position.Y = 180.000000000000000000
+    Size.Width = 240.000000000000000000
+    Size.Height = 45.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    Text = 'Disconnect'
+    OnClick = DisconnectButtonClick
   end
 end

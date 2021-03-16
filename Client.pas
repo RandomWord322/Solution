@@ -31,8 +31,11 @@ type
     ConnectButton: TButton;
     SendEdit: TEdit;
     SendButton: TButton;
+    DisconnectButton: TButton;
     procedure ConnectButtonClick(Sender: TObject);
     procedure SendButtonClick(Sender: TObject);
+    procedure DisconnectButtonClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -52,6 +55,20 @@ procedure TClientForm.ConnectButtonClick(Sender: TObject);
 begin
   ConClient := TClient.Create;
   ConClient.Connect('127.0.0.1', 20000);
+end;
+
+procedure TClientForm.DisconnectButtonClick(Sender: TObject);
+begin
+  if Assigned(ConClient) and ConClient.TryDisconnect then
+    MsgMemo.Lines.Add('Client disconnected')
+  else
+    MsgMemo.Lines.Add('Client can''t disconnect')
+end;
+
+procedure TClientForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if Assigned(ConClient) then
+    ConClient.TryDisconnect;
 end;
 
 procedure TClientForm.SendButtonClick(Sender: TObject);

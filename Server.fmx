@@ -4,7 +4,7 @@ object ServerForm: TServerForm
   BorderStyle = Single
   Caption = 'Server'
   ClientHeight = 565
-  ClientWidth = 302
+  ClientWidth = 300
   Position = Designed
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -15,10 +15,10 @@ object ServerForm: TServerForm
   DesignerMasterStyle = 0
   object IPLabel: TLabel
     StyledSettings = [Family, Style, FontColor]
-    Position.X = 8.000000000000000000
-    Position.Y = 24.000000000000000000
+    Position.X = 32.000000000000000000
+    Position.Y = 23.000000000000000000
     Size.Width = 81.000000000000000000
-    Size.Height = 17.000000000000000000
+    Size.Height = 20.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Size = 15.000000000000000000
     TextSettings.HorzAlign = Trailing
@@ -27,10 +27,10 @@ object ServerForm: TServerForm
   end
   object PortLabel: TLabel
     StyledSettings = [Family, Style, FontColor]
-    Position.X = 8.000000000000000000
-    Position.Y = 64.000000000000000000
+    Position.X = 32.000000000000000000
+    Position.Y = 70.000000000000000000
     Size.Width = 81.000000000000000000
-    Size.Height = 17.000000000000000000
+    Size.Height = 20.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Size = 15.000000000000000000
     TextSettings.HorzAlign = Trailing
@@ -41,9 +41,9 @@ object ServerForm: TServerForm
     Touch.InteractiveGestures = [LongTap, DoubleTap]
     TabOrder = 4
     Text = '127.0.0.1'
-    Position.X = 104.000000000000000000
+    Position.X = 120.000000000000000000
     Position.Y = 16.000000000000000000
-    Size.Width = 121.000000000000000000
+    Size.Width = 153.000000000000000000
     Size.Height = 33.000000000000000000
     Size.PlatformDefault = False
   end
@@ -51,17 +51,21 @@ object ServerForm: TServerForm
     Touch.InteractiveGestures = [LongTap, DoubleTap]
     TabOrder = 3
     Text = '50000'
-    Position.X = 104.000000000000000000
-    Position.Y = 56.000000000000000000
-    Size.Width = 121.000000000000000000
+    Position.X = 120.000000000000000000
+    Position.Y = 64.000000000000000000
+    Size.Width = 153.000000000000000000
     Size.Height = 33.000000000000000000
     Size.PlatformDefault = False
   end
   object StartButton: TButton
-    Position.X = 74.000000000000000000
-    Position.Y = 106.000000000000000000
-    Size.Width = 154.000000000000000000
-    Size.Height = 43.000000000000000000
+    Align = Bottom
+    Margins.Left = 30.000000000000000000
+    Margins.Right = 30.000000000000000000
+    Margins.Bottom = 10.000000000000000000
+    Position.X = 30.000000000000000000
+    Position.Y = 125.000000000000000000
+    Size.Width = 240.000000000000000000
+    Size.Height = 45.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 6
     Text = 'Start'
@@ -70,20 +74,28 @@ object ServerForm: TServerForm
   object MsgMemo: TMemo
     Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
     DataDetectorTypes = []
-    Position.X = 16.000000000000000000
-    Position.Y = 232.000000000000000000
-    Size.Width = 273.000000000000000000
-    Size.Height = 321.000000000000000000
+    Align = MostBottom
+    Margins.Left = 10.000000000000000000
+    Margins.Right = 10.000000000000000000
+    Margins.Bottom = 10.000000000000000000
+    Position.X = 10.000000000000000000
+    Position.Y = 235.000000000000000000
+    Size.Width = 280.000000000000000000
+    Size.Height = 320.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 7
-    Viewport.Width = 269.000000000000000000
-    Viewport.Height = 317.000000000000000000
+    Viewport.Width = 276.000000000000000000
+    Viewport.Height = 316.000000000000000000
   end
   object StopButton: TButton
-    Position.X = 74.000000000000000000
-    Position.Y = 170.000000000000000000
-    Size.Width = 154.000000000000000000
-    Size.Height = 43.000000000000000000
+    Align = Bottom
+    Margins.Left = 30.000000000000000000
+    Margins.Right = 30.000000000000000000
+    Margins.Bottom = 10.000000000000000000
+    Position.X = 30.000000000000000000
+    Position.Y = 180.000000000000000000
+    Size.Width = 240.000000000000000000
+    Size.Height = 45.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 5
     Text = 'Stop'
