@@ -16,7 +16,7 @@ type
   TServer = class
   strict private
     FAcceptHandle: TProc<TConnectedClient>;
-//    FNewConnectHandle: TProc<String>;
+    FNewConnectHandle: TProc<String>;
 //    FDisClientHandle: TProc<String>;
     HideActiveStatus: boolean;
     Socket: TSocket;
@@ -26,7 +26,7 @@ type
   public
     property isActive: boolean read HideActiveStatus;
     property AcceptHandle: TProc<TConnectedClient> read FAcceptHandle write FAcceptHandle;
-//    property NewConnectHandle: TProc<String> read FNewConnectHandle write FNewConnectHandle;
+    property NewConnectHandle: TProc<String> read FNewConnectHandle write FNewConnectHandle;
 //    property DisconnectHandle: TProc<String> read FDisClientHandle write FDisClientHandle;
     procedure Start(const AIP: string = '127.0.0.1';APort: Word = 20000);
     procedure Stop;
@@ -99,7 +99,7 @@ begin
   begin
     ConnectedClient := TConnectedClient.Create(AcceptedSocket);
     FAcceptHandle(ConnectedClient);
-//    FNewConnectHandle(ConnectedClient);
+    FNewConnectHandle(ConnectedClient.GetSocketIP);
     ConnectedClient.StartReceive;
   end;
   Socket.BeginAccept(AcceptCallback,100);

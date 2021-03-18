@@ -18,7 +18,9 @@ type
     Data: TBytes;
     DataSize: integer;
   public
+    function GetSocketIP: String;
     property Handle: TProc<TBytes> read FHandle write FHandle;
+    property SocketIP: String read GetSocketIP;
     function Connected: Boolean;
     procedure CallBack(const ASyncResult: IAsyncResult);
     procedure StartReceive;
@@ -89,6 +91,17 @@ begin
   FHandle := nil;
   setLength(Data,0);
   DataSize := 0;
+end;
+
+function TBaseTCPClient.GetSocketIP: String;
+begin
+  try
+    Result := '';
+    if Assigned(Socket) then
+      Result := Socket.Endpoint.Address.Address;
+  except
+    Result := '';
+  end;
 end;
 
 procedure TBaseTCPClient.StartReceive;

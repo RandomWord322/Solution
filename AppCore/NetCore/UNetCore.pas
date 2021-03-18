@@ -18,6 +18,7 @@ type
     MonitorConnectedClients: TMonitor;
     FHandler: IBaseHandler;
     procedure Handle(AData: TBytes);
+    procedure NewConHandle(SocketIP: String);
     function GetServerStatus: boolean;
   public
     ConnectedClients: TArray<TConnectedClient>;
@@ -44,12 +45,7 @@ begin
     ConnectedCli.Handle := Handle;
     ConnectedClients := ConnectedClients + [ConnectedCli];
   end);
-//  Server.NewConnectHandle :=
-//  (procedure (ConnectedCli: TConnectedClient)
-//  begin
-//    ConnectedCli.Handle := Handle;
-//    ConnectedClients := ConnectedClients + [ConnectedCli];
-//  end);
+  Server.NewConnectHandle := NewConHandle;
 end;
 
 destructor TNetCore.Destroy;
@@ -66,6 +62,11 @@ end;
 procedure TNetCore.Handle(AData: TBytes);
 begin
   FHandler.HandleReceiveData(AData);
+end;
+
+procedure TNetCore.NewConHandle(SocketIP: String);
+begin
+  FHandler.HandleConnectClient(SocketIP);
 end;
 
 procedure TNetCore.Start;
