@@ -17,7 +17,11 @@ type
     FHandle: TProc<TBytes>;
     Data: TBytes;
     DataSize: integer;
+    Id: Integer;
+    FAfterDisconnect: TProc<Integer>;
   public
+    property AfterDisconnect: TProc<Integer> read FAfterDisconnect write FAfterDisconnect;
+    property IdInArray: Integer read Id write Id;
     function GetSocketIP: String;
     property Handle: TProc<TBytes> read FHandle write FHandle;
     property SocketIP: String read GetSocketIP;
@@ -73,7 +77,7 @@ begin
     StartReceive;
   end
   else
-    FreeAndNil(self);
+    FreeAndNil(Self);
 end;
 
 procedure TBaseTCPClient.SendMessage(const AData: TBytes);
@@ -87,10 +91,14 @@ end;
 
 destructor TBaseTCPClient.Destroy;
 begin
-  FreeAndNil(Socket);
+//  if Self <> nil then
   FHandle := nil;
   setLength(Data,0);
   DataSize := 0;
+  if (Self <> nil) and (Assigned(AfterDisconnect)) then
+    AfterDisconnect(Id);
+  FreeAndNil(Socket);
+//  Self := nil;
 end;
 
 function TBaseTCPClient.GetSocketIP: String;

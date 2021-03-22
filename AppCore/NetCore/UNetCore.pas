@@ -1,6 +1,7 @@
 unit UNetCore;
 
 interface
+
 uses
   IHandlerCore,
   UServer,
@@ -11,23 +12,28 @@ uses
   System.Threading,
   System.Net.Socket,
   System.Generics.Collections;
+
 type
   TNetCore = class
   private
     Server: TServer;
     MonitorConnectedClients: TMonitor;
     FHandler: IBaseHandler;
+    NeedDestroySelf: Boolean;
     procedure Handle(AData: TBytes);
     procedure NewConHandle(SocketIP: String);
+    procedure DeleteConnectedClient(AID: integer);
     function GetServerStatus: boolean;
+    function GetFreeArraySell: integer;
   public
     ConnectedClients: TArray<TConnectedClient>;
     property ServerStarted: boolean read GetServerStatus;
     property Handler: IBaseHandler read FHandler write FHandler;
+    property DestroyNetCore: Boolean write NeedDestroySelf;
     procedure Start;
     procedure Stop;
     constructor Create(AHandler: IBaseHandler);
-    destructor Destroy;override;
+    destructor Destroy;
   end;
 
 implementation
@@ -35,23 +41,51 @@ implementation
 {$REGION 'TNetCore'}
 
 constructor TNetCore.Create(AHandler: IBaseHandler);
+var
+  id: integer;
 begin
-  SetLength(ConnectedClients,0);
+  NeedDestroySelf := False;
+  SetLength(ConnectedClients, 0);
   Server := TServer.Create;
   FHandler := AHandler;
-  Server.AcceptHandle :=
-  (procedure (ConnectedCli: TConnectedClient)
-  begin
-    ConnectedCli.Handle := Handle;
-    ConnectedClients := ConnectedClients + [ConnectedCli];
-  end);
+  Server.AcceptHandle := (
+    procedure(ConnectedCli: TConnectedClient)
+    begin
+      ConnectedCli.Handle := Handle;
+      id := GetFreeArraySell;
+      ConnectedCli.IdInArray := id;
+      ConnectedCli.AfterDisconnect := DeleteConnectedClient;
+      ConnectedClients[id] := ConnectedCli;
+    end);
   Server.NewConnectHandle := NewConHandle;
+end;
+
+procedure TNetCore.DeleteConnectedClient(AID: integer);
+begin
+  ConnectedClients[AID] := nil;
 end;
 
 destructor TNetCore.Destroy;
 begin
-  Server.Free;
-  SetLength(ConnectedClients,0);
+  Server.Destroy;
+  Server := nil;
+  SetLength(ConnectedClients, 0);
+  FHandler := nil;
+end;
+
+function TNetCore.GetFreeArraySell: integer;
+var
+  i, len: integer;
+begin
+  len := Length(ConnectedClients);
+  Result := len;
+  for i := 0 to len - 1 do
+    if (ConnectedClients[i] = nil) then
+    begin
+      Result := i;
+      exit;
+    end;
+  SetLength(ConnectedClients, len + 1);
 end;
 
 function TNetCore.GetServerStatus: boolean;
@@ -76,12 +110,15 @@ end;
 
 procedure TNetCore.Stop;
 var
-  i: Integer;
+  i: integer;
 begin
-  Server.Stop;
   for i := 0 to Length(ConnectedClients) - 1 do
-    ConnectedClients[i].Disconnect;
-  SetLength(ConnectedClients,0);
+    if (ConnectedClients[i] <> nil) then
+      ConnectedClients[i].Disconnect;
+
+  Server.Stop;
+  if NeedDestroySelf then
+    Destroy;
 end;
 
 {$ENDREGION}

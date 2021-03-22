@@ -192,7 +192,6 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="AppCore\NetCore\IHandlerCore.pas"/>
-        <DCCReference Include="AppCore\NetCore\UAbstractClient.pas"/>
         <DCCReference Include="AppCore\NetCore\UClient.pas"/>
         <DCCReference Include="AppCore\NetCore\UConnectedClient.pas"/>
         <BuildConfiguration Include="Release">

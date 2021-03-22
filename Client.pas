@@ -53,22 +53,38 @@ implementation
 
 procedure TClientForm.ConnectButtonClick(Sender: TObject);
 begin
-  ConClient := TClient.Create;
-  ConClient.Connect('127.0.0.1', 20000);
+  if not Assigned(ConClient) or ConClient.NilThisClient then
+  begin
+//    ConClient := nil;
+    ConClient := TClient.Create;
+    if not ConClient.TryConnect('127.0.0.1', 20000) then
+    begin
+      MsgMemo.Lines.Add('Client can''t connect (server is not response)');
+      ConClient.Destroy;
+      ConClient := nil;
+    end else
+      MsgMemo.Lines.Add('Client is connected now');
+  end else
+    MsgMemo.Lines.Add('Client is connected already');
 end;
 
 procedure TClientForm.DisconnectButtonClick(Sender: TObject);
 begin
   if Assigned(ConClient) and ConClient.TryDisconnect then
-    MsgMemo.Lines.Add('Client disconnected')
+  begin
+    MsgMemo.Lines.Add('Client disconnected');
+    ConClient := nil;
+  end
   else
-    MsgMemo.Lines.Add('Client can''t disconnect')
+    MsgMemo.Lines.Add('Client can''t disconnect');
 end;
 
 procedure TClientForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   if Assigned(ConClient) then
-    ConClient.TryDisconnect;
+    if not ConClient.TryDisconnect then
+      ConClient.Destroy;
+//  ConClient := nil;
 end;
 
 procedure TClientForm.SendButtonClick(Sender: TObject);

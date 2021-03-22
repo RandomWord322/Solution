@@ -10,6 +10,7 @@ object ServerForm: TServerForm
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
+  OnClose = FormClose
   Left = 720
   Top = 400
   DesignerMasterStyle = 0

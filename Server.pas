@@ -34,6 +34,7 @@ type
     procedure StartButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure StopButtonClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -54,6 +55,12 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TServerForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  NC.DestroyNetCore := True;
+  NC.Stop;
+end;
 
 procedure TServerForm.FormCreate(Sender: TObject);
 begin

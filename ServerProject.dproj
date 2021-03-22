@@ -194,7 +194,6 @@
         </DCCReference>
         <DCCReference Include="AutoTests\TestUConnectedClient.pas"/>
         <DCCReference Include="AppCore\NetCore\IHandlerCore.pas"/>
-        <DCCReference Include="AppCore\NetCore\UAbstractClient.pas"/>
         <DCCReference Include="AppCore\NetCore\UClient.pas"/>
         <DCCReference Include="AppCore\NetCore\UConnectedClient.pas"/>
         <DCCReference Include="AppCore\NetCore\UNetCore.pas"/>

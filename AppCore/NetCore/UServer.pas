@@ -31,7 +31,7 @@ type
     procedure Start(const AIP: string = '127.0.0.1';APort: Word = 20000);
     procedure Stop;
     constructor Create;
-    destructor Destroy; override;
+    destructor Destroy;
   end;
 
 implementation
@@ -53,7 +53,8 @@ begin
       Socket.Close(True);
     end;
   finally
-    Socket.Free;
+    ServerStoped.Destroy;
+    Socket.Destroy;
   end;
 end;
 
