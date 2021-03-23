@@ -15,17 +15,16 @@ type
     Socket: TSocket;
     Data: TBytes;
     DataSize: integer;
-    NeedNil: Boolean;
+    FAfterDisconnect: TProc<Boolean>;
     procedure Init;
   public
     property Handle: TProc<TBytes> read FHandle write FHandle;
-    property NilThisClient: Boolean read NeedNil;
     function TryConnect(const AIP: string; APort: Word): Boolean;
     procedure Disconnect;
     function TryDisconnect: Boolean;
     constructor Create(ASocket: TSocket = nil);
 
-
+    property BeforeDestroy: TProc<Boolean> read FAfterDisconnect write FAfterDisconnect;
     function Connected: Boolean;
     procedure CallBack(const ASyncResult: IAsyncResult);
     procedure StartReceive;
@@ -65,13 +64,12 @@ begin
   setLength(Data,0);
   DataSize := 0;
   Socket.Destroy;
-  NeedNil := True;
+  BeforeDestroy(True);
 end;
 
 procedure TClient.Disconnect;
 begin
   Socket.Close(True);
-  NeedNil := True;
 end;
 
 procedure TClient.Init;
@@ -81,7 +79,6 @@ begin
     Socket := TSocket.Create(TSocketType.TCP,TEncoding.UTF8);
     DataSize := 0;
     SetLength(Data,DataSize);
-    NeedNil := False;
   end;
 end;
 

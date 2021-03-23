@@ -37,7 +37,7 @@ type
     procedure DisconnectButtonClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
-    { Private declarations }
+    procedure NilConClient(arg: Boolean);
   public
     { Public declarations }
   end;
@@ -53,19 +53,23 @@ implementation
 
 procedure TClientForm.ConnectButtonClick(Sender: TObject);
 begin
-  if not Assigned(ConClient) or ConClient.NilThisClient then
+  if not Assigned(ConClient) then
   begin
-//    ConClient := nil;
     ConClient := TClient.Create;
+    ConClient.BeforeDestroy := NilConClient;
     if not ConClient.TryConnect('127.0.0.1', 20000) then
     begin
       MsgMemo.Lines.Add('Client can''t connect (server is not response)');
       ConClient.Destroy;
-      ConClient := nil;
     end else
       MsgMemo.Lines.Add('Client is connected now');
   end else
     MsgMemo.Lines.Add('Client is connected already');
+end;
+
+procedure TClientForm.NilConClient(arg: Boolean);
+begin
+  ConClient := nil;
 end;
 
 procedure TClientForm.DisconnectButtonClick(Sender: TObject);
