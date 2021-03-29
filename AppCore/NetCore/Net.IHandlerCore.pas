@@ -1,4 +1,4 @@
-unit IHandlerCore;
+unit Net.IHandlerCore;
 
 interface
 uses

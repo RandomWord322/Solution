@@ -5,11 +5,15 @@ uses
   FMX.Forms,
   Server in 'Server.pas' {ServerForm},
   TestUConnectedClient in 'AutoTests\TestUConnectedClient.pas',
-  IHandlerCore in 'AppCore\NetCore\IHandlerCore.pas',
-  UClient in 'AppCore\NetCore\UClient.pas',
-  UConnectedClient in 'AppCore\NetCore\UConnectedClient.pas',
-  UNetCore in 'AppCore\NetCore\UNetCore.pas',
-  UServer in 'AppCore\NetCore\UServer.pas';
+  Net.IHandlerCore in 'AppCore\NetCore\Net.IHandlerCore.pas',
+  Net.Client in 'AppCore\NetCore\Net.Client.pas',
+  Net.ConnectedClient in 'AppCore\NetCore\Net.ConnectedClient.pas',
+  Net.Core in 'AppCore\NetCore\Net.Core.pas',
+  Net.Server in 'AppCore\NetCore\Net.Server.pas',
+  BlockChain.Account in 'AppCore\BlockChain\BlockChain.Account.pas',
+  BlockChain.Core in 'AppCore\BlockChain\BlockChain.Core.pas',
+  BlockChain.Types in 'AppCore\BlockChain\BlockChain.Types.pas',
+  BlockChain.FileHandler in 'AppCore\BlockChain\BlockChain.FileHandler.pas';
 
 {$APPTYPE GUI}
 {$R *.res}

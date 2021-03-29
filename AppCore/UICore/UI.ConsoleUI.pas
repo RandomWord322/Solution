@@ -1,21 +1,21 @@
-unit ConsoleUI;
+unit UI.ConsoleUI;
 
 interface
 uses
   System.SysUtils,
-  UParserCommand,
-  Types.Base,
   System.Classes,
-  Abstractions,
-  GUI,
-  Types.UI;
+  App.Types,
+  App.Abstractions,
+  UI.ParserCommand,
+  UI.GUI,
+  UI.Types;
 
 type
   TConsoleUI = class(TBaseUI)
   private
     {Fields}
     fversion: string;
-    isTerminate: bool;
+    isTerminate: boolean;
     {Instances}
     parser: TCommandsParser;
   public
@@ -38,7 +38,7 @@ end;
 
 destructor TConsoleUI.Destroy;
 begin
-  parser.Free;
+  Parser.Free;
   inherited;
 end;
 
@@ -52,6 +52,7 @@ begin
         begin
           ShowMessage('INFO: Node - command for work with node app.');
         end;
+
       end;
     end;
     TCommandsNames.node:

@@ -1,4 +1,4 @@
-unit UParserCommand;
+unit UI.ParserCommand;
 
 interface
 
@@ -7,9 +7,9 @@ uses
   System.TypInfo,
   System.SysUtils,
   System.Generics.Collections,
-  UCommandLineParser,
-  Types.Base,
-  Types.UI;
+  App.Types,
+  UI.CommandLineParser,
+  UI.Types;
 
 type
   TCommandsParser = class

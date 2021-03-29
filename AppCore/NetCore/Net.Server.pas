@@ -1,9 +1,9 @@
-unit UServer;
+unit Net.Server;
 
 interface
 
 uses
-  UConnectedClient,
+  Net.ConnectedClient,
   System.SysUtils,
   System.Types,
   System.Classes,

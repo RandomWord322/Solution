@@ -1,11 +1,11 @@
-unit UNetCore;
+unit Net.Core;
 
 interface
 
 uses
-  IHandlerCore,
-  UServer,
-  UConnectedClient,
+  Net.IHandlerCore,
+  Net.Server,
+  Net.ConnectedClient,
   System.SysUtils,
   System.Types,
   System.Classes,

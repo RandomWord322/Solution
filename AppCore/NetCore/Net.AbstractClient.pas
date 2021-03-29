@@ -1,4 +1,4 @@
-unit UConnectedClient;
+unit Net.AbstractClient;
 
 interface
 
@@ -11,8 +11,8 @@ uses
   System.Generics.Collections;
 
 type
-  TConnectedClient = class
-  private
+  TBaseTCPClient = class abstract
+  protected
     Socket: TSocket;
     FHandle: TProc<TBytes>;
     Data: TBytes;
@@ -20,25 +20,24 @@ type
     Id: Integer;
     FAfterDisconnect: TProc<Integer>;
   public
-    procedure Disconnect;
-    constructor Create(ASocket: TSocket);
-
     property AfterDisconnect: TProc<Integer> read FAfterDisconnect write FAfterDisconnect;
     property IdInArray: Integer read Id write Id;
-    property Handle: TProc<TBytes> read FHandle write FHandle;
     function GetSocketIP: String;
+    property Handle: TProc<TBytes> read FHandle write FHandle;
     property SocketIP: String read GetSocketIP;
+    function Connected: Boolean;
     procedure CallBack(const ASyncResult: IAsyncResult);
     procedure StartReceive;
     procedure SendMessage(const AData: TBytes);
+    procedure Connect(const AIP: string; APort: Word); virtual; abstract;
+    procedure Disconnect; virtual; abstract;
+    constructor Create(ASocket: TSocket); virtual; abstract;
     destructor Destroy; override;
   end;
 
 implementation
 
-{$REGION 'TConnectedClient'}
-
-procedure TConnectedClient.CallBack(const ASyncResult: IAsyncResult);
+procedure TBaseTCPClient.CallBack(const ASyncResult: IAsyncResult);
 var
   Bytes: TBytes;
 begin
@@ -78,33 +77,31 @@ begin
     StartReceive;
   end
   else
-    Self.Destroy;
+    FreeAndNil(Self);
 end;
 
-constructor TConnectedClient.Create(ASocket: TSocket);
+procedure TBaseTCPClient.SendMessage(const AData: TBytes);
+var
+  Len: integer;
 begin
-  Socket := ASocket;
-  DataSize := 0;
-  SetLength(Data,DataSize);
+  Len := Length(AData);
+  Socket.Send(Len, SizeOf(Len));
+  Socket.Send(AData);
 end;
 
-destructor TConnectedClient.Destroy;
+destructor TBaseTCPClient.Destroy;
 begin
+//  if Self <> nil then
   FHandle := nil;
   setLength(Data,0);
   DataSize := 0;
-  AfterDisconnect(Id);
-  Socket.Destroy;
-  Socket := nil;
+  if (Self <> nil) and (Assigned(AfterDisconnect)) then
+    AfterDisconnect(Id);
+  FreeAndNil(Socket);
+//  Self := nil;
 end;
 
-procedure TConnectedClient.Disconnect;
-begin
-  if Assigned(Socket) then
-    Socket.Close;
-end;
-
-function TConnectedClient.GetSocketIP: String;
+function TBaseTCPClient.GetSocketIP: String;
 begin
   try
     Result := '';
@@ -115,21 +112,21 @@ begin
   end;
 end;
 
-procedure TConnectedClient.SendMessage(const AData: TBytes);
-var
-  Len: integer;
-begin
-  Len := Length(AData);
-  Socket.Send(Len, SizeOf(Len));
-  Socket.Send(AData);
-end;
-
-procedure TConnectedClient.StartReceive;
+procedure TBaseTCPClient.StartReceive;
 begin
   Socket.BeginReceive(CallBack);
 end;
 
-{$ENDREGION}
-
+function TBaseTCPClient.Connected: Boolean;
+begin
+  try
+    if Assigned(Socket) then
+      Result := TSocketState.Connected in Socket.State
+    else
+      Result := False;
+  except
+    Result := False;
+  end;
+end;
 
 end.

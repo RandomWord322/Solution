@@ -3,19 +3,25 @@ unit App.Core;
 interface
 
 uses
-  UCommandLineParser,
-  Types.Base,
   System.SysUtils,
   System.Classes,
-  Abstractions,
-  ConsoleUI,
-  GUI;
+  App.Types,
+  App.Abstractions,
+  BlockChain.Core,
+  Net.Core,
+  Net.HandlerCore,
+  UI.CommandLineParser,
+  UI.ConsoleUI,
+  UI.GUI;
 
 type
   TAppCore = class(TInterfacedObject, IAppCore)
   private
-    isTerminate: bool;
+    isTerminate: boolean;
     UI: TBaseUI;
+    BlockChain: TBlockChainCore;
+    Net: TNetCore;
+    NetHandlerCore: TNetHandlerCore;
     { Procedures }
     procedure AppException(Sender: TObject);
   public
@@ -40,6 +46,10 @@ begin
 {$ENDIF}
   ApplicationHandleException := AppException;
   UI.ShowMessage := ShowMessage;
+  BlockChain := TBlockChainCore.Create;
+  NetHandlerCore := TNetHandlerCore.Create(BlockChain);
+  Net := TNetCore.Create(NetHandlerCore);
+
 end;
 
 procedure TAppCore.AppException(Sender: TObject);

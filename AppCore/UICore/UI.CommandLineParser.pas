@@ -1,4 +1,4 @@
-unit UCommandLineParser;
+unit UI.CommandLineParser;
 
 interface
 uses
@@ -6,14 +6,14 @@ uses
   System.TypInfo,
   System.SysUtils,
   System.Generics.Collections,
-  Types.Base,
-  Types.UI;
+  App.Types,
+  UI.Types;
 type
   TCommandLinePattern = class
     strict private
       FName: string;
       FParametrs: TParametrs;
-      function TryParse(Args: strings;out Return: TCommandData): bool; virtual;
+      function TryParse(Args: strings;out Return: TCommandData): boolean; virtual;
     public
       property Name: string read FName write FName;
       property Parametrs: TParametrs read FParametrs write FParametrs;
@@ -75,11 +75,11 @@ begin
 
 end;
 
-function TCommandLinePattern.TryParse(Args: strings; out Return: TCommandData): bool;
+function TCommandLinePattern.TryParse(Args: strings; out Return: TCommandData): boolean;
 var
   Parametr: TParametr;
   Name: string;
-  i: int;
+  i: integer;
 begin
   Result := True;
   if Args.IsEmpty then

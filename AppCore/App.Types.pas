@@ -1,17 +1,15 @@
-unit Types.Base;
+unit App.Types;
 
 interface
 uses
   System.StrUtils;
 type
-  int = integer;
-  bool = boolean;
   Strings = TArray<string>;
   StringsHelper = record helper for Strings
     procedure SetStrings(const AValue: string);
     function Length: integer;
     function AsString(const Splitter: string): string;
-    function IsEmpty:bool;
+    function IsEmpty:boolean;
   end;
 
 implementation
@@ -33,7 +31,7 @@ begin
   Self := SplitString(AValue,' ');
 end;
 
-function StringsHelper.IsEmpty: bool;
+function StringsHelper.IsEmpty: boolean;
 begin
   Result := Length = 0;
 end;

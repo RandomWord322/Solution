@@ -4,9 +4,9 @@ uses
   System.StartUpCopy,
   FMX.Forms,
   Client in 'Client.pas' {ClientForm},
-  IHandlerCore in 'AppCore\NetCore\IHandlerCore.pas',
-  UClient in 'AppCore\NetCore\UClient.pas',
-  UConnectedClient in 'AppCore\NetCore\UConnectedClient.pas';
+  Net.IHandlerCore in 'AppCore\NetCore\Net.IHandlerCore.pas',
+  Net.Client in 'AppCore\NetCore\Net.Client.pas',
+  Net.ConnectedClient in 'AppCore\NetCore\Net.ConnectedClient.pas';
 
 {$R *.res}
 

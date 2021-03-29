@@ -193,11 +193,15 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="AutoTests\TestUConnectedClient.pas"/>
-        <DCCReference Include="AppCore\NetCore\IHandlerCore.pas"/>
-        <DCCReference Include="AppCore\NetCore\UClient.pas"/>
-        <DCCReference Include="AppCore\NetCore\UConnectedClient.pas"/>
-        <DCCReference Include="AppCore\NetCore\UNetCore.pas"/>
-        <DCCReference Include="AppCore\NetCore\UServer.pas"/>
+        <DCCReference Include="AppCore\NetCore\Net.IHandlerCore.pas"/>
+        <DCCReference Include="AppCore\NetCore\Net.Client.pas"/>
+        <DCCReference Include="AppCore\NetCore\Net.ConnectedClient.pas"/>
+        <DCCReference Include="AppCore\NetCore\Net.Core.pas"/>
+        <DCCReference Include="AppCore\NetCore\Net.Server.pas"/>
+        <DCCReference Include="AppCore\BlockChain\BlockChain.Account.pas"/>
+        <DCCReference Include="AppCore\BlockChain\BlockChain.Core.pas"/>
+        <DCCReference Include="AppCore\BlockChain\BlockChain.Types.pas"/>
+        <DCCReference Include="AppCore\BlockChain\BlockChain.FileHandler.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

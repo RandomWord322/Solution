@@ -1,4 +1,4 @@
-unit Types.UI;
+unit UI.Types;
 
 interface
 uses
@@ -6,12 +6,12 @@ uses
   System.SysUtils,
   System.TypInfo,
   System.Generics.Collections,
-  Types.Base;
+  App.Types;
 
 type
   TCommandsNames = (help, node,check);
   TCommandsHelper = record helper for TCommandsNames
-    class function InType(ACommand: string): bool; static;
+    class function InType(ACommand: string): boolean; static;
     class function AsCommand(ACommand: string): TCommandsNames; static;
   end;
 
@@ -35,7 +35,7 @@ begin
   Result := TCommandsNames(GetEnumValue(TypeInfo(TCommandsNames),ACommand));
 end;
 
-class function TCommandsHelper.InType(ACommand: string): bool;
+class function TCommandsHelper.InType(ACommand: string): Boolean;
 begin
   Result := GetEnumValue(TypeInfo(TCommandsHelper),ACommand).ToBoolean;
 end;

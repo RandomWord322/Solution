@@ -1,8 +1,8 @@
-unit GUI;
+unit UI.GUI;
 
 interface
 uses
-  Abstractions;
+  App.Abstractions;
 
 type
   TGUI= class(TBaseUI)

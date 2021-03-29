@@ -9,7 +9,7 @@
         <Projects Include="Test\ServerTests.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="ConsoleServer.dproj">
+        <Projects Include="ONodeConsole.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="Example\Example.dproj">
@@ -44,14 +44,14 @@
     <Target Name="ServerTests:Make">
         <MSBuild Projects="Test\ServerTests.dproj" Targets="Make"/>
     </Target>
-    <Target Name="ConsoleServer">
-        <MSBuild Projects="ConsoleServer.dproj"/>
+    <Target Name="ONodeConsole">
+        <MSBuild Projects="ONodeConsole.dproj"/>
     </Target>
-    <Target Name="ConsoleServer:Clean">
-        <MSBuild Projects="ConsoleServer.dproj" Targets="Clean"/>
+    <Target Name="ONodeConsole:Clean">
+        <MSBuild Projects="ONodeConsole.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="ConsoleServer:Make">
-        <MSBuild Projects="ConsoleServer.dproj" Targets="Make"/>
+    <Target Name="ONodeConsole:Make">
+        <MSBuild Projects="ONodeConsole.dproj" Targets="Make"/>
     </Target>
     <Target Name="Example">
         <MSBuild Projects="Example\Example.dproj"/>
@@ -72,13 +72,13 @@
         <MSBuild Projects="ClientProject.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="ServerProject;ServerTests;ConsoleServer;Example;ClientProject"/>
+        <CallTarget Targets="ServerProject;ServerTests;ONodeConsole;Example;ClientProject"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="ServerProject:Clean;ServerTests:Clean;ConsoleServer:Clean;Example:Clean;ClientProject:Clean"/>
+        <CallTarget Targets="ServerProject:Clean;ServerTests:Clean;ONodeConsole:Clean;Example:Clean;ClientProject:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="ServerProject:Make;ServerTests:Make;ConsoleServer:Make;Example:Make;ClientProject:Make"/>
+        <CallTarget Targets="ServerProject:Make;ServerTests:Make;ONodeConsole:Make;Example:Make;ClientProject:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

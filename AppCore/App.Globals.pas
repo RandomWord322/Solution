@@ -1,4 +1,4 @@
-unit GlobalsVariable;
+unit App.Globals;
 
 interface
 uses

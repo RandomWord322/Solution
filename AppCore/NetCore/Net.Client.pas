@@ -1,4 +1,4 @@
-unit UClient;
+unit Net.Client;
 
 interface
 uses
